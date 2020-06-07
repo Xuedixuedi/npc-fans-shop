@@ -23,6 +23,11 @@
     justify-content: center;
 }
 
+.value {
+    display: flex;
+    justify-content: center;
+}
+
 .component--card {
     min-width: 600px;
     margin-top: 20%;

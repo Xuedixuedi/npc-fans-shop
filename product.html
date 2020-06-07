@@ -6,16 +6,16 @@
 
         <!-- icon -->
 
-        <link rel="icon" href="img/npc-logo-alpha.ico" />
+        <link rel="icon" href="assests/img/npc-logo-alpha.ico" />
         <!-- CSS -->
-        <link rel="stylesheet" type="text/css" href="css/product.css" />
+        <link rel="stylesheet" type="text/css" href="assests/css/product.css" />
         <link
             rel="stylesheet"
             type="text/css"
-            href="css/settlementbutton.css"
+            href="assests/css/settlementbutton.css"
         />
-        <link rel="stylesheet" type="text/css" href="css/menu.css" />
-        <link rel="stylesheet" type="text/css" href="css/card.css" />
+        <link rel="stylesheet" type="text/css" href="assests/css/menu.css" />
+        <link rel="stylesheet" type="text/css" href="assests/css/card.css" />
     </head>
 
     <body>
@@ -26,7 +26,10 @@
                 <div class="card__title">
                     <h3>购物车</h3>
                     <p>展示您已加入购物车的所有商品列表以及价值（人民币）</p>
-                    <p>总价值：</p>
+                    <div class="value">
+                        <p>总价值：</p>
+                        <p>0</p>
+                    </div>
                 </div>
 
                 <div class="card__table">
@@ -109,7 +112,10 @@
                 <div class="card__title">
                     <h3>订单</h3>
                     <p>展示您曾经完成的订单</p>
-                    <p>总价值：</p>
+                    <div class="value">
+                        <p>总价值：</p>
+                        <p>0</p>
+                    </div>
                 </div>
 
                 <div class="card__table">
@@ -137,16 +143,16 @@
             <!-- close component div  -->
         </div>
 
+        <div class="menu">
+            <div class="overlay"></div>
+            <div class="menu-icon">Menu</div>
+            <ul class="links">
+                <li>购物车</li>
+                <li>历史订单</li>
+            </ul>
+        </div>
         <header class="header">
             <!-- cart icon -->
-            <div class="menu">
-                <div class="overlay"></div>
-                <div class="menu-icon">Menu</div>
-                <ul class="links">
-                    <li>购物车</li>
-                    <li>历史订单</li>
-                </ul>
-            </div>
 
             <div class="slogan">
                 Nine Percent | Xukun | Linong | Chengcheng | Justin | Yanjun |
@@ -169,7 +175,127 @@
         <ul class="card-container">
             <li
                 class="booking-card"
-                style="background-image: url(./img/evan.jpg);"
+                style="background-image: url(./assests/img/cxk.jpg);"
+            >
+                <div class="book-container">
+                    <div class="content">
+                        <button class="btn">加入购物车</button>
+                    </div>
+                </div>
+                <div class="informations-container">
+                    <h2 class="title">VIVO X23 手机</h2>
+                    <p class="sub-title">
+                        X23全面屏 8GB+128GB 幻夜蓝 【享3期免息】
+                    </p>
+                    <p class="price">
+                        ¥ 2000
+                    </p>
+                    <div class="more-information">
+                        <div class="info-and-date-container">
+                            <div class="box info">
+                                <p>NINEPERCENT 蔡徐坤</p>
+                            </div>
+                        </div>
+                        <p class="disclaimer">
+                            水滴全面屏，125°超大广角，第四代屏幕指纹，Jovi智能助手
+                        </p>
+                    </div>
+                </div>
+            </li>
+            <li
+                class="booking-card"
+                style="background-image: url(./assests/img/nn.jpeg);"
+            >
+                <div class="book-container">
+                    <div class="content">
+                        <button class="btn">加入购物车</button>
+                    </div>
+                </div>
+                <div class="informations-container">
+                    <h2 class="title">悦诗风吟乳液</h2>
+                    <p class="sub-title">
+                        innisfree/悦诗风吟绿茶籽精华乳液补水锁水保湿修护清爽不油腻
+                    </p>
+                    <p class="price">
+                        ¥ 160
+                    </p>
+                    <div class="more-information">
+                        <div class="info-and-date-container">
+                            <div class="box info">
+                                <p>NINEPERCENT 陈立农</p>
+                            </div>
+                        </div>
+                        <p class="disclaimer">
+                            双重锁水保湿 质地柔滑 肌肤长时间保湿水润
+                        </p>
+                    </div>
+                </div>
+            </li>
+            <li
+                class="booking-card"
+                style="background-image: url(./assests/img/fcc.jpeg);"
+            >
+                <div class="book-container">
+                    <div class="content">
+                        <button class="btn">加入购物车</button>
+                    </div>
+                </div>
+                <div class="informations-container">
+                    <h2 class="title">FENTY BEAUTY 唇釉</h2>
+                    <p class="sub-title">
+                        FENTY BEAUTY蕾哈娜唇墨丝绒持久液体口红唇釉4ml
+                    </p>
+                    <p class="price">
+                        ¥ 200
+                    </p>
+                    <div class="more-information">
+                        <div class="info-and-date-container">
+                            <div class="box info">
+                                <p>NINEPERCENT 范丞丞</p>
+                            </div>
+                        </div>
+                        <p class="disclaimer">
+                            Fenty Beauty创始于2017年，是国际流行巨星
+                            蕾哈娜Rihanna ( Robyn Rihanna
+                            Fenty)缔造的个人美妆品牌。
+                        </p>
+                    </div>
+                </div>
+            </li>
+
+            <li
+                class="booking-card"
+                style="background-image: url(./assests/img/justin.jpg);"
+            >
+                <div class="book-container">
+                    <div class="content">
+                        <button class="btn">加入购物车</button>
+                    </div>
+                </div>
+                <div class="informations-container">
+                    <h2 class="title">美年达罐装</h2>
+                    <p class="sub-title">
+                        美年達橙味碳酸飲料飲品汽水整箱330ml*24罐百事可樂出品
+                    </p>
+                    <p class="price">
+                        ¥ 50
+                    </p>
+                    <div class="more-information">
+                        <div class="info-and-date-container">
+                            <div class="box info">
+                                <p>NINEPERCENT Justin</p>
+                            </div>
+                        </div>
+                        <p class="disclaimer">
+                            橙味清甜香橙风味。掀起味觉的橙味风暴。享受经典果
+                            味带来的美味滋味。
+                        </p>
+                    </div>
+                </div>
+            </li>
+            <li
+                class="booking-card"
+                style="background-image: url(./assests/img/evan.jpg);"
             >
                 <div class="book-container">
                     <div class="content">
@@ -201,68 +327,7 @@
             </li>
             <li
                 class="booking-card"
-                style="background-image: url(./img/inns.jpg);"
-            >
-                <div class="book-container">
-                    <div class="content">
-                        <button class="btn">加入购物车</button>
-                    </div>
-                </div>
-                <div class="informations-container">
-                    <h2 class="title">悦诗风吟精华水</h2>
-                    <p class="sub-title">
-                        innisfree/悦诗风吟绿茶籽精粹水乳深层补水保湿
-                    </p>
-                    <p class="price">
-                        ¥ 150
-                    </p>
-                    <div class="more-information">
-                        <div class="info-and-date-container">
-                            <div class="box info">
-                                <p>NINEPERCENT 王子异</p>
-                            </div>
-                        </div>
-                        <p class="disclaimer">
-                            蕴含来自济州的美肤绿茶水，为肌肤补充丰盈水分，帮助调节肌肤水油平衡的保湿平衡水乳套装
-                        </p>
-                    </div>
-                </div>
-            </li>
-            <li
-                class="booking-card"
-                style="background-image: url(./img/uu.jpeg);"
-            >
-                <div class="book-container">
-                    <div class="content">
-                        <button class="btn">加入购物车</button>
-                    </div>
-                </div>
-                <div class="informations-container">
-                    <h2 class="title">I Do 香榭之吻</h2>
-                    <p class="sub-title">
-                        I Do
-                        香榭之吻初绽香水女士持久淡香水ido花果香调50ml官方正品
-                    </p>
-                    <p class="price">
-                        ¥ 520
-                    </p>
-                    <div class="more-information">
-                        <div class="info-and-date-container">
-                            <div class="box info">
-                                <p>NINEPERCENT 尤长靖</p>
-                            </div>
-                        </div>
-                        <p class="disclaimer">
-                            闪耀且充盈幸福的清新花香 饱满热烈的明媚果香
-                            温润优雅的性感木香 共同诉说着纯粹而深邃的恋人絮语
-                            仿佛与挚爱拥吻于香榭丽舍大道 尽享默契专属的爱情魔法
-                        </p>
-                    </div>
-                </div>
-            </li>
-            <li
-                class="booking-card"
-                style="background-image: url(./img/zzt.jpg);"
+                style="background-image: url(./assests/img/zzt.jpg);"
             >
                 <div class="book-container">
                     <div class="content">
@@ -294,7 +359,7 @@
             </li>
             <li
                 class="booking-card"
-                style="background-image: url(./img/nn.jpeg);"
+                style="background-image: url(./assests/img/inns.jpg);"
             >
                 <div class="book-container">
                     <div class="content">
@@ -302,118 +367,28 @@
                     </div>
                 </div>
                 <div class="informations-container">
-                    <h2 class="title">悦诗风吟乳液</h2>
+                    <h2 class="title">悦诗风吟精华水</h2>
                     <p class="sub-title">
-                        innisfree/悦诗风吟绿茶籽精华乳液补水锁水保湿修护清爽不油腻
+                        innisfree/悦诗风吟绿茶籽精粹水乳深层补水保湿
                     </p>
                     <p class="price">
-                        ¥ 160
+                        ¥ 150
                     </p>
                     <div class="more-information">
                         <div class="info-and-date-container">
                             <div class="box info">
-                                <p>NINEPERCENT 陈立农</p>
+                                <p>NINEPERCENT 王子异</p>
                             </div>
                         </div>
                         <p class="disclaimer">
-                            双重锁水保湿 质地柔滑 肌肤长时间保湿水润
+                            蕴含来自济州的美肤绿茶水，为肌肤补充丰盈水分，帮助调节肌肤水油平衡的保湿平衡水乳套装
                         </p>
                     </div>
                 </div>
             </li>
             <li
                 class="booking-card"
-                style="background-image: url(./img/cxk.jpg);"
-            >
-                <div class="book-container">
-                    <div class="content">
-                        <button class="btn">加入购物车</button>
-                    </div>
-                </div>
-                <div class="informations-container">
-                    <h2 class="title">VIVO X23 手机</h2>
-                    <p class="sub-title">
-                        X23全面屏 8GB+128GB 幻夜蓝 【享3期免息】
-                    </p>
-                    <p class="price">
-                        ¥ 2000
-                    </p>
-                    <div class="more-information">
-                        <div class="info-and-date-container">
-                            <div class="box info">
-                                <p>NINEPERCENT 蔡徐坤</p>
-                            </div>
-                        </div>
-                        <p class="disclaimer">
-                            水滴全面屏，125°超大广角，第四代屏幕指纹，Jovi智能助手
-                        </p>
-                    </div>
-                </div>
-            </li>
-            <li
-                class="booking-card"
-                style="background-image: url(./img/fcc.jpeg);"
-            >
-                <div class="book-container">
-                    <div class="content">
-                        <button class="btn">加入购物车</button>
-                    </div>
-                </div>
-                <div class="informations-container">
-                    <h2 class="title">FENTY BEAUTY 唇釉</h2>
-                    <p class="sub-title">
-                        FENTY BEAUTY蕾哈娜唇墨丝绒持久液体口红唇釉4ml
-                    </p>
-                    <p class="price">
-                        ¥ 200
-                    </p>
-                    <div class="more-information">
-                        <div class="info-and-date-container">
-                            <div class="box info">
-                                <p>NINEPERCENT 范丞丞</p>
-                            </div>
-                        </div>
-                        <p class="disclaimer">
-                            Fenty Beauty创始于2017年，是国际流行巨星
-                            蕾哈娜Rihanna ( Robyn Rihanna
-                            Fenty)缔造的个人美妆品牌。
-                        </p>
-                    </div>
-                </div>
-            </li>
-            <li
-                class="booking-card"
-                style="background-image: url(./img/justin.jpg);"
-            >
-                <div class="book-container">
-                    <div class="content">
-                        <button class="btn">加入购物车</button>
-                    </div>
-                </div>
-                <div class="informations-container">
-                    <h2 class="title">美年达罐装</h2>
-                    <p class="sub-title">
-                        美年達橙味碳酸飲料飲品汽水整箱330ml*24罐百事可樂出品
-                    </p>
-                    <p class="price">
-                        ¥ 50
-                    </p>
-                    <div class="more-information">
-                        <div class="info-and-date-container">
-                            <div class="box info">
-                                <p>NINEPERCENT Justin</p>
-                            </div>
-                        </div>
-                        <p class="disclaimer">
-                            橙味清甜香橙风味。掀起味觉的橙味风暴。享受经典果
-                            味带来的美味滋味。
-                        </p>
-                    </div>
-                </div>
-            </li>
-            <li
-                class="booking-card"
-                style="background-image: url(./img/ghost.jpg);"
+                style="background-image: url(./assests/img/ghost.jpg);"
             >
                 <div class="book-container">
                     <div class="content">
@@ -441,9 +416,41 @@
                     </div>
                 </div>
             </li>
+            <li
+                class="booking-card"
+                style="background-image: url(./assests/img/uu.jpeg);"
+            >
+                <div class="book-container">
+                    <div class="content">
+                        <button class="btn">加入购物车</button>
+                    </div>
+                </div>
+                <div class="informations-container">
+                    <h2 class="title">I Do 香榭之吻</h2>
+                    <p class="sub-title">
+                        I Do
+                        香榭之吻初绽香水女士持久淡香水ido花果香调50ml官方正品
+                    </p>
+                    <p class="price">
+                        ¥ 520
+                    </p>
+                    <div class="more-information">
+                        <div class="info-and-date-container">
+                            <div class="box info">
+                                <p>NINEPERCENT 尤长靖</p>
+                            </div>
+                        </div>
+                        <p class="disclaimer">
+                            闪耀且充盈幸福的清新花香 饱满热烈的明媚果香
+                            温润优雅的性感木香 共同诉说着纯粹而深邃的恋人絮语
+                            仿佛与挚爱拥吻于香榭丽舍大道 尽享默契专属的爱情魔法
+                        </p>
+                    </div>
+                </div>
+            </li>
         </ul>
 
         <!-- JavaScript -->
-        <script src="js/menu.js"></script>
+        <script src="assests/js/product.js"></script>
     </body>
 </html>

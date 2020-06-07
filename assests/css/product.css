@@ -1,6 +1,7 @@
 @font-face {
     font-family: "HandWritten";
-    src: url("../fonts/YangRenDongZhuShiTi-Light-2.ttf") format("truetype");
+    src: url("../assests/fonts/YangRenDongZhuShiTi-Light-2.ttf")
+        format("truetype");
 }
 
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:400,700,900");
