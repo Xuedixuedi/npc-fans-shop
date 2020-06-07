@@ -9,34 +9,146 @@
         <link rel="icon" href="img/npc-logo-alpha.ico" />
         <!-- CSS -->
         <link rel="stylesheet" type="text/css" href="css/product.css" />
-        <link rel="stylesheet" type="text/css" href="css/main.css" />
-        <link rel="stylesheet" type="text/css" href="css/radio.css" />
-        <link rel="stylesheet" type="text/css" href="css/banner.css" />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="css/settlementbutton.css"
+        />
+        <link rel="stylesheet" type="text/css" href="css/menu.css" />
+        <link rel="stylesheet" type="text/css" href="css/card.css" />
     </head>
 
     <body>
-        <!-- JavaScript -->
-        <script src="js/product.js"></script>
-        <script type="text/javascript" src="js/main.js"></script>
+        <div class="container" id="cart">
+            <div class="component--card position-in-page">
+                <!--  at the top of the card show an icon included in the SVG set -->
+
+                <div class="card__title">
+                    <h3>购物车</h3>
+                    <p>展示您已加入购物车的所有商品列表以及价值（人民币）</p>
+                    <p>总价值：</p>
+                </div>
+
+                <div class="card__table">
+                    <div class="card__table__row row--title">
+                        <span>商品</span>
+                        <span>数量</span>
+                        <span>总额(人民币)</span>
+                    </div>
+                    <div class="card__table__row">
+                        <span>农夫山泉维他命水</span>
+                        <span>1</span>
+                        <span>40</span>
+                    </div>
+                    <div class="card__table__row">
+                        <span>农夫山泉维他命水</span>
+                        <span>1</span>
+                        <span>40</span>
+                    </div>
+                    <div class="card__table__row">
+                        <span>农夫山泉维他命水</span>
+                        <span>1</span>
+                        <span>40</span>
+                    </div>
+                    <div class="card__table__row">
+                        <span>农夫山泉维他命水</span>
+                        <span>1</span>
+                        <span>40</span>
+                    </div>
+                    <div class="card__table__row">
+                        <span>农夫山泉维他命水</span>
+                        <span>1</span>
+                        <span>40</span>
+                    </div>
+                    <div class="card__table__row">
+                        <span>农夫山泉维他命水</span>
+                        <span>1</span>
+                        <span>40</span>
+                    </div>
+                    <div class="card__table__row">
+                        <span>农夫山泉维他命水</span>
+                        <span>1</span>
+                        <span>40</span>
+                    </div>
+                    <div class="card__table__row">
+                        <span>农夫山泉维他命水</span>
+                        <span>1</span>
+                        <span>40</span>
+                    </div>
+                    <div class="card__table__row">
+                        <span>农夫山泉维他命水</span>
+                        <span>1</span>
+                        <span>40</span>
+                    </div>
+                    <div class="settle-button-group">
+                        <div class="button">
+                            <span class="button__mask"></span>
+                            <span class="button__text">结算</span>
+                            <span class="button__text button__text--bis"
+                                >结算</span
+                            >
+                        </div>
+                        <div class="button">
+                            <span class="button__mask"></span>
+                            <span class="button__text">关闭</span>
+                            <span class="button__text button__text--bis"
+                                >关闭</span
+                            >
+                        </div>
+                    </div>
+                </div>
+                <!-- close table div -->
+            </div>
+            <!-- close component div  -->
+        </div>
+
+        <div class="container" id="order">
+            <div class="component--card position-in-page">
+                <!--  at the top of the card show an icon included in the SVG set -->
+
+                <div class="card__title">
+                    <h3>订单</h3>
+                    <p>展示您曾经完成的订单</p>
+                    <p>总价值：</p>
+                </div>
+
+                <div class="card__table">
+                    <div class="card__table__row row--title">
+                        <span>商品</span>
+                        <span>总额(人民币)</span>
+                    </div>
+                    <div class="card__table__row">
+                        <span>农夫山泉维他命水</span>
+                        <span>40</span>
+                    </div>
+
+                    <div class="settle-button-group">
+                        <div class="button">
+                            <span class="button__mask"></span>
+                            <span class="button__text">关闭</span>
+                            <span class="button__text button__text--bis"
+                                >关闭</span
+                            >
+                        </div>
+                    </div>
+                </div>
+                <!-- close table div -->
+            </div>
+            <!-- close component div  -->
+        </div>
 
         <header class="header">
-            <svg
-                class="ham hamRotate ham1"
-                viewBox="0 0 100 100"
-                width="80"
-                onclick="this.classList.toggle('active')"
-            >
-                <path
-                    class="line top"
-                    d="m 30,33 h 40 c 0,0 9.044436,-0.654587 9.044436,-8.508902 0,-7.854315 -8.024349,-11.958003 -14.89975,-10.85914 -6.875401,1.098863 -13.637059,4.171617 -13.637059,16.368042 v 40"
-                />
-                <path class="line middle" d="m 30,50 h 40" />
-                <path
-                    class="line bottom"
-                    d="m 30,67 h 40 c 12.796276,0 15.357889,-11.717785 15.357889,-26.851538 0,-15.133752 -4.786586,-27.274118 -16.667516,-27.274118 -11.88093,0 -18.499247,6.994427 -18.435284,17.125656 l 0.252538,40"
-                />
-            </svg>
-            <div class="container">
+            <!-- cart icon -->
+            <div class="menu">
+                <div class="overlay"></div>
+                <div class="menu-icon">Menu</div>
+                <ul class="links">
+                    <li>购物车</li>
+                    <li>历史订单</li>
+                </ul>
+            </div>
+
+            <div class="slogan">
                 Nine Percent | Xukun | Linong | Chengcheng | Justin | Yanjun |
                 Zhengting | Ziyi | Xiao Gui | Zhangjing
             </div>
@@ -53,6 +165,7 @@
         <!-- end banner -->
 
         <h1>Product Cards</h1>
+
         <ul class="card-container">
             <li
                 class="booking-card"
@@ -208,6 +321,129 @@
                     </div>
                 </div>
             </li>
+            <li
+                class="booking-card"
+                style="background-image: url(./img/cxk.jpg);"
+            >
+                <div class="book-container">
+                    <div class="content">
+                        <button class="btn">加入购物车</button>
+                    </div>
+                </div>
+                <div class="informations-container">
+                    <h2 class="title">VIVO X23 手机</h2>
+                    <p class="sub-title">
+                        X23全面屏 8GB+128GB 幻夜蓝 【享3期免息】
+                    </p>
+                    <p class="price">
+                        ¥ 2000
+                    </p>
+                    <div class="more-information">
+                        <div class="info-and-date-container">
+                            <div class="box info">
+                                <p>NINEPERCENT 蔡徐坤</p>
+                            </div>
+                        </div>
+                        <p class="disclaimer">
+                            水滴全面屏，125°超大广角，第四代屏幕指纹，Jovi智能助手
+                        </p>
+                    </div>
+                </div>
+            </li>
+            <li
+                class="booking-card"
+                style="background-image: url(./img/fcc.jpeg);"
+            >
+                <div class="book-container">
+                    <div class="content">
+                        <button class="btn">加入购物车</button>
+                    </div>
+                </div>
+                <div class="informations-container">
+                    <h2 class="title">FENTY BEAUTY 唇釉</h2>
+                    <p class="sub-title">
+                        FENTY BEAUTY蕾哈娜唇墨丝绒持久液体口红唇釉4ml
+                    </p>
+                    <p class="price">
+                        ¥ 200
+                    </p>
+                    <div class="more-information">
+                        <div class="info-and-date-container">
+                            <div class="box info">
+                                <p>NINEPERCENT 范丞丞</p>
+                            </div>
+                        </div>
+                        <p class="disclaimer">
+                            Fenty Beauty创始于2017年，是国际流行巨星
+                            蕾哈娜Rihanna ( Robyn Rihanna
+                            Fenty)缔造的个人美妆品牌。
+                        </p>
+                    </div>
+                </div>
+            </li>
+            <li
+                class="booking-card"
+                style="background-image: url(./img/justin.jpg);"
+            >
+                <div class="book-container">
+                    <div class="content">
+                        <button class="btn">加入购物车</button>
+                    </div>
+                </div>
+                <div class="informations-container">
+                    <h2 class="title">美年达罐装</h2>
+                    <p class="sub-title">
+                        美年達橙味碳酸飲料飲品汽水整箱330ml*24罐百事可樂出品
+                    </p>
+                    <p class="price">
+                        ¥ 50
+                    </p>
+                    <div class="more-information">
+                        <div class="info-and-date-container">
+                            <div class="box info">
+                                <p>NINEPERCENT Justin</p>
+                            </div>
+                        </div>
+                        <p class="disclaimer">
+                            橙味清甜香橙风味。掀起味觉的橙味风暴。享受经典果
+                            味带来的美味滋味。
+                        </p>
+                    </div>
+                </div>
+            </li>
+            <li
+                class="booking-card"
+                style="background-image: url(./img/ghost.jpg);"
+            >
+                <div class="book-container">
+                    <div class="content">
+                        <button class="btn">加入购物车</button>
+                    </div>
+                </div>
+                <div class="informations-container">
+                    <h2 class="title">ISANA高能安瓶</h2>
+                    <p class="sub-title">
+                        ISANA高能安瓶精华液补水提升紧致减皱组合6盒装
+                    </p>
+                    <p class="price">
+                        ¥ 280
+                    </p>
+                    <div class="more-information">
+                        <div class="info-and-date-container">
+                            <div class="box info">
+                                <p>NINEPERCENT 小鬼</p>
+                            </div>
+                        </div>
+                        <p class="disclaimer">
+                            双倍玻尿酸，维他命原B5, 烟酰胺，柠檬酸，大麦提取
+                            物，甘油等
+                        </p>
+                    </div>
+                </div>
+            </li>
         </ul>
+
+        <!-- JavaScript -->
+        <script src="js/menu.js"></script>
     </body>
 </html>
