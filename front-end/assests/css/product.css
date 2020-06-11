@@ -16,17 +16,16 @@ body {
     height: 70px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
+    color: #548cb9;
+    margin-left: 1px;
+    font-family: sans-serif;
     /* background: #fff; */
 }
-.slogan {
-    /* @extend .clearfix; */
-    font-family: "HandWritten";
-    margin-left: 100px;
-    text-align: right;
-    float: right;
-    font-family: sans-serif;
-    color: #548cb9;
+.user-display {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .banner {

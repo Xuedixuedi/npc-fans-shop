@@ -19,18 +19,20 @@ var $orderClose = document
 var xmlhttp = new XMLHttpRequest()
 
 window.onload = function () {
-    let xmlhttp = new XMLHttpRequest()
+    let xmlhttp = new XMLHttpRequest() //物件专门用来和伺服器做连线
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            let tmp = JSON.parse(xmlhttp.responseText)["message"]
-            document.getElementById("name0").innerHTML = tmp[0]["name"]
-            document.getElementById("price0").innerHTML = "$" + tmp[0]["price"]
-            document.getElementById("name1").innerHTML = tmp[1]["name"]
-            document.getElementById("price1").innerHTML = "$" + tmp[1]["price"]
+            let username = JSON.parse(xmlhttp.responseText)["username"]
+            document.getElementById("username").innerHTML = username //显示当前用户的名字
         }
     }
-    xmlhttp.open("GET", "http://127.0.0.1:8088/api/goods", true)
-    xmlhttp.send()
+    xmlhttp.open("GET", "http://localhost:5000/", true)
+    // xmlhttp.onload = function () {
+    //     //事件，侦测连线状态的结束
+    //     //连线完成
+    //     alert(this.responseText)
+    // }
+    xmlhttp.send() //送出连线
 }
 
 console.log($addCart)
