@@ -16,8 +16,6 @@ var $orderClose = document
     .getElementById("order")
     .querySelectorAll(".button")[0] //关闭订单记录
 
-var xmlhttp = new XMLHttpRequest()
-
 window.onload = function () {
     let xmlhttp = new XMLHttpRequest() //物件专门用来和伺服器做连线
     xmlhttp.onreadystatechange = function () {

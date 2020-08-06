@@ -21,9 +21,14 @@
         <div class="login-page">
             <div class="form">
                 <form class="register-form" id="register">
-                    <input type="text" placeholder="name" />
-                    <input type="password" placeholder="password" />
-                    <input type="text" placeholder="email address" />
+                    <input
+                        class="username"
+                        type="text"
+                        placeholder="username must be numbery"
+                    />
+                    <input class="name" type="text" placeholder="name" />
+                    <input class="pwd" type="password" placeholder="password" />
+
                     <button>create</button>
                     <p class="message">
                         Already registered?
@@ -31,8 +36,12 @@
                     </p>
                 </form>
                 <form class="login-form" id="login">
-                    <input type="text" placeholder="username" />
-                    <input type="password" placeholder="password" />
+                    <input
+                        class="username"
+                        type="text"
+                        placeholder="username"
+                    />
+                    <input class="pwd" type="password" placeholder="password" />
                     <button>login</button>
                     <p class="message">
                         Not registered?
