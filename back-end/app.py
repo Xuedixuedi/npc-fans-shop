@@ -1,27 +1,27 @@
 import json
-from flask import Flask, render_template, request, jsonify
+import os
+
+from flask import Flask, render_template, request, jsonify, session, url_for
 import pymysql
 from flask_cors import CORS
 from flask_login import LoginManager, UserMixin, login_user
 from werkzeug.security import generate_password_hash
 import uuid
 
-# ...
-USERS = [
-    {
-        "id": 1,
-        "name": 'lily',
-        "password": generate_password_hash('123')
-    },
-    {
-        "id": 2,
-        "name": 'tom',
-        "password": generate_password_hash('123')
-    }
-]
+from werkzeug.utils import redirect
 
 app = Flask(__name__)
 app.secret_key = 'abc'  # 设置表单交互密钥
+
+app.config['SESSION_TYPE'] = 'filesystem'  # session类型为redis
+app.config[
+    'SESSION_FILE_DIR'] = '/Users/xuedixuedi/lxdThings/Code/github/npc-fans-shop/front-end/assests/2.flask-session'  # session类型为redis
+app.config['SESSION_FILE_THRESHOLD'] = 500  # 存储session的个数如果大于这个值时，就要开始进行删除了
+app.config['SESSION_FILE_MODE'] = 384  # 文件权限类型
+
+app.config['SESSION_PERMANENT'] = True  # 如果设置为True，则关闭浏览器session就失效。
+app.config['SESSION_USE_SIGNER'] = False  # 是否对发送到浏览器上session的cookie值进行加密
+app.config['SESSION_KEY_PREFIX'] = 'session:'  # 保存到session中的值的前缀
 
 login_manager = LoginManager()  # 实例化登录管理对象
 login_manager.init_app(app)  # 初始化应用
@@ -31,23 +31,11 @@ login_manager.login_view = 'login'  # 设置用户登录视图函数 endpoint
 CORS(app, resources=r'/*')
 
 
-# # 连接到数据库
-# conn = pymysql.connect(
-#     host='127.0.0.1',
-#     user='root',
-#     port=3306,
-#     password='123456',
-#     db='npc_shop',
-#     charset='utf8'
-# )
-
-
-# def queryOrder:
-
 # test
-@app.route('/')
+@app.route('/', methods=['POST'])
 def home():
-    result_text = {"statusCode": 200, "username": "lxd"}
+    name = now_customer_data.get("name")
+    result_text = {"statusCode": 200, "username": name}
     return result_text
 
 
@@ -56,8 +44,6 @@ def home():
 def register():
     data = request.get_json()
     username = data['username']
-    print(data)
-    print(data['username'])
     msg = create_user(data)
     return msg
 
@@ -66,8 +52,6 @@ def register():
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    print(data)
-    print(data['username'])
     msg = get_user(data)
     return msg
 
@@ -105,6 +89,7 @@ def create_user(data):
         conn.commit()
         msg = "注册成功,请登录"
 
+
     except:
         # 发生错误时回滚
         conn.rollback()
@@ -131,15 +116,16 @@ def get_user(data):
     sql = "SELECT * FROM customer_login \
            WHERE customer_id = %d and password = \'%s\'" % \
           (data['username'], data['password'])
-    print(sql)
 
     try:
         # 执行sql语句
         cursor.execute(sql)
         results = cursor.fetchall()
-        print(len(results))
+        print(results[0][1])  # results[0][1]是用户昵称
         if len(results) == 1:
             msg = "登录成功！"
+            global now_customer_data  # 全局session
+            now_customer_data = {"username": data['username'], "name": results[0][1]}  # 全局记录当前的用户
         else:
             msg = '用户名或密码不正确'
         # 执行sql语句
@@ -167,18 +153,13 @@ def changeState(user_name):
     # 使用cursor()方法获取操作游标
     cursor = conn.cursor()
     # SQL 插入语句  里面的数据类型要对应
-    sql = "UPDATE "
+    sql = "UPDATE customer_login SET stats = 1"
     print(sql)
 
     try:
         # 执行sql语句
         cursor.execute(sql)
-        results = cursor.fetchall()
-        print(len(results))
-        if len(results) == 1:
-            msg = "登录成功！"
-        else:
-            msg = '用户名或密码不正确'
+        msg = '用户名或密码不正确'
         # 执行sql语句
         conn.commit()
 
@@ -188,33 +169,6 @@ def changeState(user_name):
         msg = "登录失败，请检查用户名及密码"
 
         conn.close()  # 关闭连接
-
-
-# @app.route('/hello')  # 函数的装饰
-# def hello_world():
-#     # 创建光标对象，一个连接可以有很多光标，一个光标跟踪一种数据状态。
-#     # 光标对象作用是：、创建、删除、写入、查询等等
-#     cur = conn.cursor()
-#
-#     # 关闭连接对象，否则会导致连接泄漏，消耗数据库资源
-#     conn.close()
-#     # 关闭光标
-#     cur.close()
-#
-#     # get annual sales rank
-#     sql = "select * from product_info"
-#     cur.execute(sql)
-#     content = cur.fetchall()
-#
-#     # 获取表头
-#     sql = "SHOW FIELDS FROM product_info"
-#     cur.execute(sql)
-#     labels = cur.fetchall()
-#     labels = [l[0] for l in labels]
-#     print(labels)
-#     print(content)
-#
-#     # return render_template('index.html', labels=labels, content=content)
 
 
 if __name__ == '__main__':

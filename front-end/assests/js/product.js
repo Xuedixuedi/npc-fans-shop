@@ -24,7 +24,7 @@ window.onload = function () {
             document.getElementById("username").innerHTML = username //显示当前用户的名字
         }
     }
-    xmlhttp.open("GET", "http://localhost:5000/", true)
+    xmlhttp.open("POST", "http://localhost:5000/", true)
     // xmlhttp.onload = function () {
     //     //事件，侦测连线状态的结束
     //     //连线完成
