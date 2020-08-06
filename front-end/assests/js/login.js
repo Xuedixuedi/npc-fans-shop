@@ -96,7 +96,8 @@ $loginButton.addEventListener("click", function () {
     request.onload = function () {
         alert(request.responseText)
         console.log(request.responseText)
-        if (request.responseText == "登录成功！") {
+        if (request.responseText.indexOf("成功") != -1) {
+            //判断是否登录成功
             loginform.username.value = null
             loginform.password.value = null
             window.location.href = "product.html"
@@ -106,7 +107,4 @@ $loginButton.addEventListener("click", function () {
     request.open("POST", "http://localhost:5000/login", true)
     request.setRequestHeader("Content-type", "application/json")
     request.send(data_json)
-
-    //登录逻辑
-    // window.location.href = "product.html"
 })
