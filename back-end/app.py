@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify
 import pymysql
 from flask_cors import CORS
 
@@ -27,9 +27,18 @@ def home():
     return result_text
 
 
+# 注册
+@app.route('/register', methods=['POST'])
+def register():
+    data = request.get_json()
+    username = data['username']
+    return jsonify({"username": username})
+
+
 @app.route('/cart')  # 购物车信息
 def cart():
     result_text = {"product_name": "I Do 香榭之吻", "qty": 1, "price": 520}
+    return result_text
 
 
 # @app.route('/hello')  # 函数的装饰
@@ -60,4 +69,4 @@ def cart():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
