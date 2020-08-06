@@ -62,6 +62,16 @@ def register():
     return msg
 
 
+# 登录
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    print(data)
+    print(data['username'])
+    msg = get_user(data)
+    return msg
+
+
 @app.route('/cart')  # 购物车信息
 def cart():
     result_text = {"product_name": "I Do 香榭之吻", "qty": 1, "price": 520}
@@ -104,12 +114,80 @@ def create_user(data):
     return msg
 
 
-def get_user(user_name):
-    """根据用户名获得用户记录"""
-    for user in USERS:
-        if user.get("name") == user_name:
-            return user
-    return None
+# 传入用户名、密码、name的data
+def get_user(data):
+    # 连接到数据库
+    conn = pymysql.connect(
+        host='127.0.0.1',
+        user='root',
+        port=3306,
+        password='123456',
+        db='npc_shop',
+        charset='utf8'
+    )
+    # 使用cursor()方法获取操作游标
+    cursor = conn.cursor()
+    # SQL 插入语句  里面的数据类型要对应
+    sql = "SELECT * FROM customer_login \
+           WHERE customer_id = %d and password = \'%s\'" % \
+          (data['username'], data['password'])
+    print(sql)
+
+    try:
+        # 执行sql语句
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        print(len(results))
+        if len(results) == 1:
+            msg = "登录成功！"
+        else:
+            msg = '用户名或密码不正确'
+        # 执行sql语句
+        conn.commit()
+    except:
+        # 发生错误时回滚
+        conn.rollback()
+        msg = "登录失败，请检查用户名及密码"
+
+    conn.close()  # 关闭连接
+    return msg
+
+
+# 当登录成功时，修改state为登录状态
+def changeState(user_name):
+    conn = pymysql.connect(
+        host='127.0.0.1',
+        user='root',
+        port=3306,
+        password='123456',
+        db='npc_shop',
+        charset='utf8'
+    )
+
+    # 使用cursor()方法获取操作游标
+    cursor = conn.cursor()
+    # SQL 插入语句  里面的数据类型要对应
+    sql = "UPDATE "
+    print(sql)
+
+    try:
+        # 执行sql语句
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        print(len(results))
+        if len(results) == 1:
+            msg = "登录成功！"
+        else:
+            msg = '用户名或密码不正确'
+        # 执行sql语句
+        conn.commit()
+
+    except:
+        # 发生错误时回滚
+        conn.rollback()
+        msg = "登录失败，请检查用户名及密码"
+
+        conn.close()  # 关闭连接
 
 
 # @app.route('/hello')  # 函数的装饰

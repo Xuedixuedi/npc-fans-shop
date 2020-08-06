@@ -58,6 +58,9 @@ $registerButton.addEventListener("click", function () {
         if (request.responseText == "注册成功,请登录") {
             $register.style.display = "none"
             $login.style.display = "block"
+            regform.username.value = null
+            regform.password.value = null
+            regform.name.value = null
         }
     }
 
@@ -73,10 +76,37 @@ $registerButton.addEventListener("click", function () {
 //点击登录按钮，跳转至主界面
 $loginButton.addEventListener("click", function () {
     var loginData = {
-        username: loginform.username.value,
+        username: parseInt(loginform.username.value),
         password: loginform.password.value,
     }
 
+    var data_json = JSON.stringify(loginData)
+    console.log(loginData)
+    console.log(data_json)
+
+    //一个ajax请求
+    var request
+    if (window.XMLHttpRequest) {
+        //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+        request = new XMLHttpRequest()
+    } else {
+        // IE6, IE5 浏览器执行代码
+        request = new ActiveXObject("Microsoft.XMLHTTP")
+    }
+    request.onload = function () {
+        alert(request.responseText)
+        console.log(request.responseText)
+        if (request.responseText == "登录成功！") {
+            loginform.username.value = null
+            loginform.password.value = null
+            window.location.href = "product.html"
+        }
+    }
+
+    request.open("POST", "http://localhost:5000/login", true)
+    request.setRequestHeader("Content-type", "application/json")
+    request.send(data_json)
+
     //登录逻辑
-    window.location.href = "product.html"
+    // window.location.href = "product.html"
 })
