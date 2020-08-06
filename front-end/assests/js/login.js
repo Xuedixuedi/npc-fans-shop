@@ -54,7 +54,13 @@ $registerButton.addEventListener("click", function () {
     }
     request.onload = function () {
         alert(request.responseText)
+        console.log(request.responseText)
+        if (request.responseText == "注册成功,请登录") {
+            $register.style.display = "none"
+            $login.style.display = "block"
+        }
     }
+
     request.open("POST", "http://localhost:5000/register", true)
     request.setRequestHeader("Content-type", "application/json")
     request.send(data_json)
