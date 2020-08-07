@@ -30,12 +30,12 @@ window.onload = function () {
     xmlhttp.send() //送出连线
 }
 
-console.log($addCart)
-
 //打开购物车
 $cartButton.addEventListener("click", function () {
     $cartCard.style.display = "flex"
-
+    //不知道为什么 就算发送数据为空也必须发送 不然没法查询
+    var cartData = {}
+    var data_json = JSON.stringify(cartData)
     //一个ajax请求
     var request
     if (window.XMLHttpRequest) {
@@ -46,11 +46,38 @@ $cartButton.addEventListener("click", function () {
         request = new ActiveXObject("Microsoft.XMLHTTP")
     }
     request.onload = function () {
-        console.log(request.responseText)
+        response_json = JSON.parse(request.responseText)
+        cart_json = response_json.cart
+        console.log(cart_json)
+
+        if (request.responseText.indexOf("msg") != -1) {
+            //查询成功
+            cart_table = document.getElementById("cart_table")
+            tot_money = 0 //商品总价
+            for (i = 0; i < cart_json.length; ++i) {
+                //添加购物车里面的东西
+                new_item = document.createElement("div")
+                new_item.innerHTML =
+                    "<span>" +
+                    cart_json[i].product_name +
+                    "</span><span>" +
+                    cart_json[i].qty +
+                    "</span><span>" +
+                    cart_json[i].tot_price +
+                    "</span>"
+                new_item.classList = ["card__table__row"]
+                cart_table.appendChild(new_item)
+                tot_money += cart_json[i].tot_price
+            }
+            document.getElementById("tot_money").innerHTML = tot_money
+        } else {
+            //查询失败
+        }
     }
 
     request.open("POST", "http://localhost:5000/cart", true)
     request.setRequestHeader("Content-type", "application/json")
+    request.send(data_json)
 })
 
 //结算购物车
