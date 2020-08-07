@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, json
 import pymysql
 from flask_cors import CORS
 from flask_login import LoginManager, UserMixin, login_user
@@ -15,6 +15,8 @@ login_manager.login_view = 'login'  # 设置用户登录视图函数 endpoint
 
 # r'/*' 是通配符，让本服务器所有的URL 都允许跨域请求
 CORS(app, resources=r'/*')
+
+now_customer_data = {"username": 1, "name": "林彦俊"}
 
 
 # test
@@ -42,11 +44,20 @@ def login():
     return msg
 
 
+# 加入购物车
+@app.route('/add_cart', methods=['POST'])  # 购物车信息
+def add_cart(item):  # 传入该商品的id
+    return
+
+
+# 查询购物车
 @app.route('/cart', methods=['POST'])  # 购物车信息
 def cart():
     username = now_customer_data.get("username")
-    print(username)
-    msg = get_cart(username)
+    msg, cart = get_cart(username)
+
+    msg = {"msg": msg, "cart": cart}
+    print(msg)
     return msg
 
 
@@ -123,6 +134,7 @@ def get_user(data):
         msg = "登录失败，请检查用户名及密码"
 
     conn.close()  # 关闭连接
+
     return msg
 
 
@@ -139,15 +151,17 @@ def get_cart(username):
     )
     # 使用cursor()方法获取操作游标
     cursor = conn.cursor()
-    # SQL 查询语句  里面的数据类型要对应
-    sql = "SELECT * FROM order_cart \
-               WHERE customer_id = %d " % username
+    # SQL 查询语句  里面的数据类型要对应 查询出来产品名称 数量 总额
+    sql = "select product_name,product_amount,order_cart.price from product_info,order_cart \
+            where \
+            order_cart.product_id = product_info.product_id \
+            and customer_id = %d" % username
 
     try:
         # 执行sql语句
         cursor.execute(sql)
         results = cursor.fetchall()
-        print(results)  # results[0][1]是用户昵称
+        cart = save_cart(results)
         # 执行sql语句
         conn.commit()
         msg = "查询购物车成功"
@@ -155,9 +169,21 @@ def get_cart(username):
         # 发生错误时回滚
         conn.rollback()
         msg = "查询失败"
+        cart = []
 
     conn.close()  # 关闭连接
-    return msg
+    return msg, cart
+
+
+# 把查询到的购物车信息写入json并发给前端
+def save_cart(results):
+    results = list(results)  # 保存一堆列表
+    cart_json = []
+    for i in results:
+        i = list(i)
+        item_json = {"product_name": i[0], "qty": i[1], "tot_price": float(i[2])}
+        cart_json.append(item_json)
+    return cart_json
 
 
 if __name__ == '__main__':
