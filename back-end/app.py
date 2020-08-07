@@ -18,6 +18,19 @@ CORS(app, resources=r'/*')
 
 now_customer_data = {"username": 1, "name": "林彦俊"}
 
+# 作弊了 把价格表写这里方便多了
+item_price = {
+    "1": 2000.00,
+    "2": 160.00,
+    "3": 200.00,
+    "4": 50.00,
+    "5": 40.00,
+    '6': 80.00,
+    "7": 150.00,
+    "8": 280.00,
+    "9": 520.00
+}
+
 
 # test
 @app.route('/', methods=['POST'])
@@ -31,7 +44,6 @@ def home():
 @app.route('/register', methods=['POST'])
 def register():
     data = request.get_json()
-    username = data['username']
     msg = create_user(data)
     return msg
 
@@ -46,8 +58,12 @@ def login():
 
 # 加入购物车
 @app.route('/add_cart', methods=['POST'])  # 购物车信息
-def add_cart(item):  # 传入该商品的id
-    return
+def add_cart():  # 传入该商品的id
+
+    item_id = request.get_json()["id"]
+    username = now_customer_data.get("username")
+    msg = add_item(item_id, username)
+    return msg
 
 
 # 查询购物车
@@ -57,7 +73,6 @@ def cart():
     msg, cart = get_cart(username)
 
     msg = {"msg": msg, "cart": cart}
-    print(msg)
     return msg
 
 
@@ -184,6 +199,74 @@ def save_cart(results):
         item_json = {"product_name": i[0], "qty": i[1], "tot_price": float(i[2])}
         cart_json.append(item_json)
     return cart_json
+
+
+# 把某id的商品加入购物车
+def add_item(id, username):
+    # 连接到数据库
+    conn = pymysql.connect(
+        host='127.0.0.1',
+        user='root',
+        port=3306,
+        password='123456',
+        db='npc_shop',
+        charset='utf8'
+    )
+    # 使用cursor()方法获取操作游标
+    cursor = conn.cursor()
+    # SQL 查询语句
+    # 此处逻辑应该是：先看这个用户的购物车里面有没有这个东西，如果有，数量加一 如果没有，新建一条记录
+    sql1 = "select COUNT(*) from order_cart where product_id = %d and customer_id = %d" % (id, username)
+
+    try:
+        # 执行sql语句
+        cursor.execute(sql1)
+        results = cursor.fetchall()
+        print(results[0][0])
+        # 该商品已经存在于这人的购物车
+        if results[0][0] == 1:
+            # 更新这个商品在购物车中的价格和数量
+            sql2 = "update order_cart set product_amount = product_amount + 1 , price = price + %f where customer_id " \
+                   "= %d and product_id = %d" % \
+                   (item_price["%d" % id], username, id)
+            try:
+                # 执行sql语句
+                cursor.execute(sql2)
+                results = cursor.fetchall()
+                # 执行sql语句
+                conn.commit()
+                print("加入成功")
+            except:
+                # 发生错误时回滚
+                conn.rollback()
+                print("加入失败")
+
+        else:  # 该商品不在购物车里面
+            # 添加该商品
+            sql3 = "insert into order_cart(customer_id, product_id, product_amount, price) values (%d, %d, 1, %f)" % \
+                   (username, id, item_price["%d" % id])
+            try:
+                # 执行sql语句
+                cursor.execute(sql3)
+                results = cursor.fetchall()
+                # 执行sql语句
+                conn.commit()
+                print("新的加入成功")
+            except:
+                # 发生错误时回滚
+                conn.rollback()
+                print("新的加入失败")
+
+        # 执行sql语句
+        conn.commit()
+        msg = "添加成功，请去购物车查看商品"
+    except:
+        # 发生错误时回滚
+        conn.rollback()
+        msg = "添加失败"
+
+    conn.close()  # 关闭连接
+    return msg
 
 
 if __name__ == '__main__':
