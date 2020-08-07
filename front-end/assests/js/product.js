@@ -34,6 +34,8 @@ window.onload = function () {
 $cartButton.addEventListener("click", function () {
     $cartCard.style.display = "flex"
     //不知道为什么 就算发送数据为空也必须发送 不然没法查询
+    //必须先清空一次 后面再生成
+    document.getElementById("cart_table").innerHTML = ""
     var cartData = {}
     var data_json = JSON.stringify(cartData)
     //一个ajax请求
@@ -105,7 +107,28 @@ $orderClose.addEventListener("click", function () {
 for (let i = 0; i < $addCart.length; i++) {
     $addCart[i].addEventListener("click", function () {
         alert("加入购物车成功")
+        //i+1就是商品在数据库中对应的编号
+        item_id = i + 1
+        item_data = { id: item_id }
+        data_json = JSON.stringify(item_data)
+        console.log(data_json)
         //把i传给后端
+        //一个ajax请求
+        var request
+        if (window.XMLHttpRequest) {
+            //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+            request = new XMLHttpRequest()
+        } else {
+            // IE6, IE5 浏览器执行代码
+            request = new ActiveXObject("Microsoft.XMLHTTP")
+        }
+        request.onload = function () {
+            console.log(request.responseText)
+        }
+
+        request.open("POST", "http://localhost:5000/add_cart", true)
+        request.setRequestHeader("Content-type", "application/json")
+        request.send(data_json)
     })
 }
 //menu js
