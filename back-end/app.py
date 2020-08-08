@@ -76,6 +76,17 @@ def cart():
     return msg
 
 
+# 结算购物车
+@app.route('/settle', methods=['POST'])
+def settle():
+    username = now_customer_data.get("username")
+    tot_price = request.get_json().get("tot_money")
+    print(tot_price)
+    msg, msg1 = settle_cart(username, tot_price)
+    msg = {"msg": msg, "msg1": msg1}
+    return msg
+
+
 # 传入用户名、密码、name的data
 def create_user(data):
     # 连接到数据库
@@ -267,6 +278,50 @@ def add_item(id, username):
 
     conn.close()  # 关闭连接
     return msg
+
+
+def settle_cart(username, tot_price):
+    # 连接到数据库
+    conn = pymysql.connect(
+        host='127.0.0.1',
+        user='root',
+        port=3306,
+        password='123456',
+        db='npc_shop',
+        charset='utf8'
+    )
+    # 使用cursor()方法获取操作游标
+    cursor = conn.cursor()
+    # SQL 把购物车里面的删除 加入到订单记录里面
+    sql = "insert into order_master(customer_id, order_money, product_id, product_amount, price) " \
+          "select customer_id, %f, product_id, product_amount, price " \
+          "from order_cart " \
+          "where customer_id = %d" % (tot_price, username)
+    try:
+        # 执行sql语句
+        cursor.execute(sql)
+        # 执行sql语句
+        conn.commit()
+        msg = "结算成功"
+        sql2 = "delete from order_cart where customer_id = %d" % username
+        try:
+            # 执行sql语句
+            cursor.execute(sql2)
+            # 执行sql语句
+            conn.commit()
+            msg1 = "已删除购物车信息"
+        except:
+            # 发生错误时回滚
+            conn.rollback()
+            msg1 = "failed to delete"
+
+    except:
+        # 发生错误时回滚
+        conn.rollback()
+        msg = "settle fail"
+
+    conn.close()  # 关闭连接
+    return msg, msg1
 
 
 if __name__ == '__main__':
