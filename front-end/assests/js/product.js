@@ -84,7 +84,34 @@ $cartButton.addEventListener("click", function () {
 
 //结算购物车
 $cartSettle.addEventListener("click", function () {
-    $cartSettle.style.display = "none"
+    tot_money = document.getElementById("tot_money").innerHTML
+    tot_data = { tot_money: parseFloat(tot_money) }
+    data_json = JSON.stringify(tot_data)
+    console.log(data_json)
+
+    //一个ajax请求
+    var request
+    if (window.XMLHttpRequest) {
+        //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+        request = new XMLHttpRequest()
+    } else {
+        // IE6, IE5 浏览器执行代码
+        request = new ActiveXObject("Microsoft.XMLHTTP")
+    }
+    request.onload = function () {
+        console.log(request.responseText)
+        //成功
+        if (request.responseText.indexOf("fail") == -1) {
+            alert("结算成功，请查看购物车及订单记录")
+            $cartCard.style.display = "none"
+        }
+    }
+
+    request.open("POST", "http://localhost:5000/settle", true)
+    request.setRequestHeader("Content-type", "application/json")
+    request.send(data_json)
+
+    // $cartSettle.style.display = "none"
     //结算逻辑
 })
 
