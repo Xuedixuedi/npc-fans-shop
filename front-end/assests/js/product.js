@@ -35,7 +35,8 @@ $cartButton.addEventListener("click", function () {
     $cartCard.style.display = "flex"
     //不知道为什么 就算发送数据为空也必须发送 不然没法查询
     //必须先清空一次 后面再生成
-    document.getElementById("cart_table").innerHTML = ""
+    document.getElementById("cart_table").innerHTML =
+        '<div class="card__table__row row--title"><span>商品</span><span>数量</span><span>总额(人民币)</span></div>'
     var cartData = {}
     var data_json = JSON.stringify(cartData)
     //一个ajax请求
@@ -71,7 +72,7 @@ $cartButton.addEventListener("click", function () {
                 cart_table.appendChild(new_item)
                 tot_money += cart_json[i].tot_price
             }
-            document.getElementById("tot_money").innerHTML = tot_money
+            document.getElementById("cart_tot_money").innerHTML = tot_money
         } else {
             //查询失败
         }
@@ -123,6 +124,54 @@ $cartClose.addEventListener("click", function () {
 //打开订单记录
 $orderButton.addEventListener("click", function () {
     $orderCard.style.display = "flex"
+    //不知道为什么 就算发送数据为空也必须发送 不然没法查询
+    //必须先清空一次 后面再生成
+    document.getElementById("order_table").innerHTML =
+        '<div class="card__table__row row--title"><span>商品</span><span>件数</span><span>总额(人民币)</span><span>时间</span></div>'
+    var orderData = {}
+    var data_json = JSON.stringify(orderData)
+    //一个ajax请求
+    var request
+    if (window.XMLHttpRequest) {
+        //  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+        request = new XMLHttpRequest()
+    } else {
+        // IE6, IE5 浏览器执行代码
+        request = new ActiveXObject("Microsoft.XMLHTTP")
+    }
+    request.onload = function () {
+        response_json = JSON.parse(request.responseText)
+        order_json = response_json.order
+        if (request.responseText.indexOf("fail") == -1) {
+            //查询成功
+            order_table = document.getElementById("order_table")
+            tot_money = 0 //商品总价
+            for (i = 0; i < order_json.length; ++i) {
+                //添加购物车里面的东西
+                new_item = document.createElement("div")
+                new_item.innerHTML =
+                    "<span>" +
+                    order_json[i].product_name +
+                    "</span><span>" +
+                    order_json[i].qty +
+                    "</span><span>" +
+                    order_json[i].tot_price +
+                    "</span><span>" +
+                    order_json[i].time +
+                    "</span>"
+                new_item.classList = ["card__table__row"]
+                order_table.appendChild(new_item)
+                tot_money += order_json[i].tot_price
+            }
+            document.getElementById("order_tot_money").innerHTML = tot_money
+        } else {
+            //查询失败
+        }
+    }
+
+    request.open("POST", "http://localhost:5000/order", true)
+    request.setRequestHeader("Content-type", "application/json")
+    request.send(data_json)
 })
 
 // 关闭订单记录

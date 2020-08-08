@@ -28,7 +28,7 @@
                     <p>展示您已加入购物车的所有商品列表以及价值（人民币）</p>
                     <div class="value">
                         <p>总价值：</p>
-                        <p id="tot_money">0</p>
+                        <p id="cart_tot_money">0</p>
                     </div>
                 </div>
 
@@ -65,28 +65,23 @@
                     <p>展示您曾经完成的订单</p>
                     <div class="value">
                         <p>总价值：</p>
-                        <p>0</p>
+                        <p id="order_tot_money">0</p>
                     </div>
                 </div>
 
-                <div class="card__table">
+                <div class="card__table" id="order_table">
                     <div class="card__table__row row--title">
                         <span>商品</span>
+                        <span>件数</span>
                         <span>总额(人民币)</span>
+                        <span>时间</span>
                     </div>
-                    <div class="card__table__row">
-                        <span>农夫山泉维他命水</span>
-                        <span>40</span>
-                    </div>
-
-                    <div class="settle-button-group">
-                        <div class="button">
-                            <span class="button__mask"></span>
-                            <span class="button__text">关闭</span>
-                            <span class="button__text button__text--bis"
-                                >关闭</span
-                            >
-                        </div>
+                </div>
+                <div class="settle-button-group">
+                    <div class="button">
+                        <span class="button__mask"></span>
+                        <span class="button__text">关闭</span>
+                        <span class="button__text button__text--bis">关闭</span>
                     </div>
                 </div>
                 <!-- close table div -->
