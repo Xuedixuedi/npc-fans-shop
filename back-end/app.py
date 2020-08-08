@@ -1,11 +1,8 @@
 from flask import Flask, render_template, request, json
 import pymysql
 from flask_cors import CORS
-from flask_login import LoginManager, UserMixin, login_user
-from werkzeug.security import generate_password_hash
-import uuid
-
-from werkzeug.utils import redirect
+from flask_login import LoginManager
+import datetime
 
 app = Flask(__name__)
 
@@ -84,6 +81,16 @@ def settle():
     print(tot_price)
     msg, msg1 = settle_cart(username, tot_price)
     msg = {"msg": msg, "msg1": msg1}
+    return msg
+
+
+# 结算购物车
+@app.route('/order', methods=['POST'])
+def order():
+    username = now_customer_data.get("username")
+    msg, order = get_order(username)
+    msg = {"msg": msg, "order": order}
+    print(msg)
     return msg
 
 
@@ -322,6 +329,57 @@ def settle_cart(username, tot_price):
 
     conn.close()  # 关闭连接
     return msg, msg1
+
+
+# 查询用户订单记录
+def get_order(username):
+    # 连接到数据库
+    conn = pymysql.connect(
+        host='127.0.0.1',
+        user='root',
+        port=3306,
+        password='123456',
+        db='npc_shop',
+        charset='utf8'
+    )
+    # 使用cursor()方法获取操作游标
+    cursor = conn.cursor()
+
+    # SQL 插入语句  里面的数据类型要对应
+    sql = "select product_name, product_amount,order_master.price,create_time from order_master,product_info where " \
+          "order_master.product_id = product_info.product_id and customer_id = %d order by create_time " % username
+
+    try:
+        # 执行sql语句
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        print(results)
+        order = save_order(results)
+        # 执行sql语句
+        conn.commit()
+        msg = "查询订单成功"
+
+
+    except:
+        # 发生错误时回滚
+        conn.rollback()
+        msg = "query fail"
+
+    conn.close()  # 关闭连接
+    return msg, order
+
+
+# 把查询到的订单信息写入json并发给前端
+def save_order(results):
+    results = list(results)  # 保存一堆列表
+    order_json = []
+    for i in results:
+        i = list(i)
+        print(i)
+        item_json = {"product_name": i[0], "qty": i[1], "tot_price": float(i[2]),
+                     "time": i[3].strftime("%Y-%m-%d %H:%M:%S")}
+        order_json.append(item_json)
+    return order_json
 
 
 if __name__ == '__main__':
