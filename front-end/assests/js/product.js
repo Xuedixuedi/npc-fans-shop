@@ -85,7 +85,7 @@ $cartButton.addEventListener("click", function () {
 
 //结算购物车
 $cartSettle.addEventListener("click", function () {
-    tot_money = document.getElementById("tot_money").innerHTML
+    tot_money = document.getElementById("cart_tot_money").innerHTML
     tot_data = { tot_money: parseFloat(tot_money) }
     data_json = JSON.stringify(tot_data)
     console.log(data_json)
