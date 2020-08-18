@@ -26,7 +26,7 @@ window.onload = function () {
             document.getElementById("username").innerHTML = "游客"
         }
     }
-    xmlhttp.open("POST", "http://localhost:5000/", true)
+    xmlhttp.open("POST", "http://172.81.243.195:5000/", true)
     xmlhttp.send() //送出连线
 }
 
@@ -78,7 +78,7 @@ $cartButton.addEventListener("click", function () {
         }
     }
 
-    request.open("POST", "http://localhost:5000/cart", true)
+    request.open("POST", "http://172.81.243.195:5000/cart", true)
     request.setRequestHeader("Content-type", "application/json")
     request.send(data_json)
 })
@@ -108,7 +108,7 @@ $cartSettle.addEventListener("click", function () {
         }
     }
 
-    request.open("POST", "http://localhost:5000/settle", true)
+    request.open("POST", "http://172.81.243.195:5000/settle", true)
     request.setRequestHeader("Content-type", "application/json")
     request.send(data_json)
 
@@ -169,7 +169,7 @@ $orderButton.addEventListener("click", function () {
         }
     }
 
-    request.open("POST", "http://localhost:5000/order", true)
+    request.open("POST", "http://172.81.243.195:5000/order", true)
     request.setRequestHeader("Content-type", "application/json")
     request.send(data_json)
 })
@@ -202,7 +202,7 @@ for (let i = 0; i < $addCart.length; i++) {
             console.log(request.responseText)
         }
 
-        request.open("POST", "http://localhost:5000/add_cart", true)
+        request.open("POST", "http://172.81.243.195:5000/add_cart", true)
         request.setRequestHeader("Content-type", "application/json")
         request.send(data_json)
     })

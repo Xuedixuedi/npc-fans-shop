@@ -64,7 +64,7 @@ $registerButton.addEventListener("click", function () {
         }
     }
 
-    request.open("POST", "http://localhost:5000/register", true)
+    request.open("POST", "http://172.81.243.195:5000/register", true)
     request.setRequestHeader("Content-type", "application/json")
     request.send(data_json)
 
@@ -104,7 +104,7 @@ $loginButton.addEventListener("click", function () {
         }
     }
 
-    request.open("POST", "http://localhost:5000/login", true)
+    request.open("POST", "http://172.81.243.195:5000/login", true)
     request.setRequestHeader("Content-type", "application/json")
     request.send(data_json)
 })
